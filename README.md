@@ -4,7 +4,7 @@
 
 We are a team of 3.
 
-| Plugin | Major | Github 
+| Names | Major | Github 
 | ------ | ------ |------ |
 | Krishaan Patel| CS|[https://github.com/kpate135]|
 | Chun Ho Wong | CS| [https://github.com/cwong165] |
@@ -21,7 +21,7 @@ Phase 1 is deciding what topic we would study
 --------------------------------
 Differential Privacy <br />
 
->One topic we are interested in is Differential Privacy since this is a topic that generally won’t create direct profits/benefits for companies. Hence, a lot of companies might not spend their valuable resources on this, and we can only hope that they do some protection to our privacy. 
+>One topic we are interested in is Differential Privacy since this is a topic that generally won’t create direct profits/benefits for companies. Hence, a lot of companies might not be willing to spend their valuable resources on this, and we can only hope that they do some protection to our privacy.  <br />
 
 
 Here are the goals of this research: <br />
@@ -35,6 +35,10 @@ Here are the goals of this research: <br />
 https://academic.oup.com/jamia/article/28/10/2269/6333353 <br />
 https://www.sciencedirect.com/science/article/pii/S2666389921002282 <br />
 https://ieeexplore.ieee.org/abstract/document/5360513  <br />
+
+## Papers/Reference (Proposal Phase)
+--------------------------------
+We would be implementing the algorithm discussed in the third paper, and try to mimic the study they have done. The paper takes the algorithm and applies it to clinical data mining through tests for binomial proportions and contingency tables.
 
 
 
