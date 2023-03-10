@@ -1,4 +1,5 @@
-import csv
+import pandas as pd
+# import csv
 import random
 import math
 
@@ -11,7 +12,7 @@ import math
 
 # ============Data Handling=================
 # Load dataset
-# CODE HERE
+df = pd.read_csv('Clinical_data.csv')
 # Do Data Cleaning
 # CODE HERE
 # =================END=======================
@@ -26,7 +27,7 @@ def calculate_epsilon(privacy_level): #might need to pass in data set as well?
   
     return (sensitivity / privacy_level)
 
-# Define Bounded Leplace Algorithm
+# Define Bounded Laplace Algorithm
 
 def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
     
@@ -37,7 +38,7 @@ def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
 
 
 
-# ======Apply Alogirhtem to DataSet========
+# ======Apply Algorithm to Dataset========
 privacy_level = 0.5 # User define value
 epsilon = calculate_epsilon(privacy_level) # might need to update # FIX ME!
 # =============END=========================
