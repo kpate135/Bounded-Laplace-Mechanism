@@ -3,6 +3,7 @@ import pandas as pd
 import random
 import math
 
+
 # =====================================================================================================================================================
 # This is a basic structure of the code that we are going to implement
 # We would not use the built-in method in numpy to do Bounded Leplace Algorithm, instead we would implement it by using only math and random libraries
@@ -12,9 +13,12 @@ import math
 
 # ============Data Handling=================
 # Load dataset
-df = pd.read_csv('Clinical_data.csv')
-# Do Data Cleaning
-# CODE HERE
+df = pd.read_csv("Clinical-data.csv")
+# Do Data Cleaning w/ Pandas library
+df.dropna(inplace=True) # We could remove all missing/null values since we have a large dataset
+# We can remove unnecessary columns as well, there are A LOT that we won't care about
+# cols_to_keep = ['INSERT COLUMNS']
+# df = df.drop(columns=df.columns.difference(cols_to_keep)) # This specifies columns we want to keep, and it drops the rest of the columns (Could be useful)
 # =================END=======================
 
 
