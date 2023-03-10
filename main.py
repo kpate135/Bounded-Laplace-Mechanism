@@ -19,7 +19,6 @@ import math
 
 # =======Algorithem Implementation===========
 # Define an Algorithm that finds Epsilon
-# CODE HERE
 
 def calculate_epsilon(privacy_level): #might need to pass in data set as well? 
     #We would need to calculate sensitivity base on a few method, we can find the max or min from the dataset and then do max - min.
@@ -27,13 +26,18 @@ def calculate_epsilon(privacy_level): #might need to pass in data set as well?
   
     return (sensitivity / privacy_level)
 
-# Define Bounded Leplace Algorithm 
-# CODE HERE
+# Define Bounded Leplace Algorithm
+
+def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
+    
+    return 1    # FIX ME, obviously 
+
 # ==============END=========================
 
 
 
 
 # ======Apply Alogirhtem to DataSet========
-# CODE HERE
+privacy_level = 0.5 # User define value
+epsilon = calculate_epsilon(privacy_level) # might need to update # FIX ME!
 # =============END=========================
