@@ -1,5 +1,7 @@
 import pandas as pd
 # import csv
+import numpy as np
+from numpy.linalg import norm
 import random
 import math
 
@@ -23,6 +25,10 @@ df.dropna(inplace=True) # We could remove all missing/null values since we have 
 
 
 # =======Algorithem Implementation===========
+# Define an Algorithm that calculates sensitivity
+def calculate_sensitivity(target_query):
+    return np.max(norm(target_query, axis=1))
+
 # Define an Algorithm that finds Epsilon
 
 def calculate_epsilon(privacy_level): #might need to pass in data set as well? 
@@ -43,6 +49,12 @@ def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
 
 
 # ======Apply Algorithm to Dataset========
+
+# Extract the target row from the dataset
+
+# Calculate the sensitivity of the query 
+sensitivity = calculate_sensitivity() #Calculate and pass in the correct target row here
+
 privacy_level = 0.5 # User define value
 epsilon = calculate_epsilon(privacy_level) # might need to update # FIX ME!
 # =============END=========================
