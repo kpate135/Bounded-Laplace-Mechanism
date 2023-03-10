@@ -43,7 +43,7 @@ Edmund Wong is currently working on the summary for the “Differential privacy 
 After discussing with TA, we settle on using a dataset found on Kaggle with the algorithm described in the paper https://journalprivacyconfidentiality.org/index.php/jpc/article/view/715/690.  <br />
 
 The reason is that the dataset used in the paper is not publicly available, and we found a suitable replacement dataset on Kaggle.<br />
-
+https://www.kaggle.com/datasets/nikhilsingh012/covid19-clinical-trials?resource=download&select=Clinical_data.csv
 ## Papers/Reference
 --------------------------------
 https://academic.oup.com/jamia/article/28/10/2269/6333353 <br />
