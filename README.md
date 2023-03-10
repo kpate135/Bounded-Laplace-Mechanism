@@ -1,4 +1,6 @@
-# CS108 Project Group CEK
+# Bounded Laplace Algorithm
+# CS108 Project Group CEK 
+
 -------------------------
 ## Members
 
@@ -29,16 +31,25 @@ Here are the goals of this research: <br />
 -- To find what we can do as a user to better protect our own privacy. <br />
 -- To educate readers if/how our data is being protected or not. <br />
 
+## Papers/Reference (Proposal Phase)  [Updated]
+--------------------------------
+
+Krishaan Patel is currently working on the summary for the “The Bounded Laplace Mechanism In Differential Privacy” paper.<br />
+
+Chun Ho Wong is currently working on the summary for the “Differential privacy in health research: A scoping review” paper.<br />
+
+Edmund Wong is currently working on the summary for the “Differential privacy for public health data: An innovative tool to optimize information sharing while protecting data confidentiality” paper.<br />
+
+After discussing with TA, we settle on using a dataset found on Kaggle with the algorithm described in the paper https://journalprivacyconfidentiality.org/index.php/jpc/article/view/715/690.  <br />
+
+The reason is that the dataset used in the paper is not publicly available, and we found a suitable replacement dataset on Kaggle.<br />
 
 ## Papers/Reference
 --------------------------------
 https://academic.oup.com/jamia/article/28/10/2269/6333353 <br />
 https://www.sciencedirect.com/science/article/pii/S2666389921002282 <br />
 https://ieeexplore.ieee.org/abstract/document/5360513  <br />
-
-## Papers/Reference (Proposal Phase)
---------------------------------
-We would be implementing the algorithm discussed in the third paper, and try to mimic the study they have done. The paper takes the algorithm and applies it to clinical data mining through tests for binomial proportions and contingency tables.
+https://journalprivacyconfidentiality.org/index.php/jpc/article/view/715/690 <br />
 
 
 
