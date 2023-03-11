@@ -15,6 +15,8 @@ from sklearn.datasets import load_iris
 
 # ============Data Handling=================
 # Load dataset
+df = pd.read_csv("iris.csv")
+print(df.head)
 iris = load_iris()
 original_data = iris.data
 # Do Data Cleaning w/ Pandas library
@@ -30,13 +32,32 @@ original_data = iris.data
 def calculate_sensitivity(target_query):
     return np.max(norm(target_query, axis=1))
 
-# Define an Algorithm that finds Epsilon
+# Define an Algorithm that finds the scale for Laplace
 
 def calculate_scale(sensitivity, privacy_level): #might need to pass in data set as well? 
     #We would need to calculate sensitivity base on a few method, we can find the max or min from the dataset and then do max - min.
     #sensitivity = ? #empty for now, waiting for data cleaning to be done
   
     return (sensitivity / privacy_level)
+
+# Define an Algorithm to calculate mean on a specified column
+
+def calculate_mean(data, columnName):
+    columnNum = 0
+    if (columnName == "sepal.length"):
+        columnNum = 0
+    elif (columnName == "sepal.width"):
+        columnNum = 1
+    elif (columnName == "petal.length"):
+        columnNum = 2
+    elif (columnName == "petal.width"):
+        columnNum = 3
+    else:
+        print("Invalid Column Name Entered")
+        exit(0)
+    
+    print("Mean :", np.mean(data[:, columnNum]))
+    return np.mean(data[:, columnNum])
 
 # Define Bounded Laplace Algorithm
 
@@ -66,6 +87,11 @@ epsilon = 1.0
 bound = 1.0
 
 scale = calculate_scale(sensitivity, epsilon) # might need to update # FIX ME!
+
+#Calculate the mean of the target column (the value we want to apply privacy to)
+#define the columnName to calculate mean on
+columnName = "sepal.length"
+original_data = calculate_mean(original_data, columnName) #specify the column of the iris dataset
 
 #Call Bounded_Laplace_Algorithm passing in original data, laplace scale, and bound
 noisy_data = Bounded_Laplace_Algorithm(original_data, scale, bound)
