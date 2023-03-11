@@ -56,7 +56,7 @@ def calculate_mean(data, columnName):
         print("Invalid Column Name Entered")
         exit(0)
     
-    print("Mean :", np.mean(data[:, columnNum]))
+    #print("Mean :", np.mean(data[:, columnNum]))
     return np.mean(data[:, columnNum])
 
 # Define Bounded Laplace Algorithm
@@ -65,8 +65,11 @@ def Bounded_Laplace_Algorithm(original_data, scale, bound): # FIX ME, What input
     #original_data represents the data prior to noise being introduced
     #the scale refers to the λ or exponential decay needed for the laplace mechanism
     #the bound indicates the appopriate output domain in which the noise can be introduced
+    
+    noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
+    #apply the bounding restrictions to the new method
 
-    return 1    # FIX ME, obviously 
+    return original_data + noise    # FIX ME, obviously 
 
 # ==============END=========================
 
