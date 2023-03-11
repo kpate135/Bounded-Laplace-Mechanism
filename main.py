@@ -39,8 +39,11 @@ def calculate_scale(sensitivity, privacy_level): #might need to pass in data set
 
 # Define Bounded Laplace Algorithm
 
-def Bounded_Laplace_Algorithm(): # FIX ME, What input does it need?
-    
+def Bounded_Laplace_Algorithm(original_data, scale, bound): # FIX ME, What input does it need?
+    #original_data represents the data prior to noise being introduced
+    #the scale refers to the λ or exponential decay needed for the laplace mechanism
+    #the bound indicates the appopriate output domain in which the noise can be introduced
+
     return 1    # FIX ME, obviously 
 
 # ==============END=========================
