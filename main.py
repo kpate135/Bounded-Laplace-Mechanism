@@ -31,7 +31,7 @@ def calculate_sensitivity(target_query):
 
 # Define an Algorithm that finds Epsilon
 
-def calculate_epsilon(privacy_level): #might need to pass in data set as well? 
+def calculate_scale(sensitivity, privacy_level): #might need to pass in data set as well? 
     #We would need to calculate sensitivity base on a few method, we can find the max or min from the dataset and then do max - min.
     #sensitivity = ? #empty for now, waiting for data cleaning to be done
   
@@ -39,7 +39,7 @@ def calculate_epsilon(privacy_level): #might need to pass in data set as well?
 
 # Define Bounded Laplace Algorithm
 
-def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
+def Bounded_Laplace_Algorithm(): # FIX ME, What input does it need?
     
     return 1    # FIX ME, obviously 
 
@@ -55,6 +55,13 @@ def Bounded_Leplace_Algorithm(): # FIX ME, What input does it need?
 # Calculate the sensitivity of the query 
 sensitivity = calculate_sensitivity() #Calculate and pass in the correct target row here
 
-privacy_level = 0.5 # User define value
-epsilon = calculate_epsilon(privacy_level) # might need to update # FIX ME!
+# Set the privacy level (epsilon) 
+epsilon = 1.0
+
+# Set the bound for the magnitude of the noise introduced
+bound = 1.0
+
+scale = calculate_scale(sensitivity, epsilon) # might need to update # FIX ME!
+
+#Call Bounded_Laplace_Algorithm passing in original data, laplace scale, and bound
 # =============END=========================
