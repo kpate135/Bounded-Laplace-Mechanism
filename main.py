@@ -15,7 +15,7 @@ import math
 
 # ============Data Handling=================
 # Load dataset
-df = pd.read_csv("Clinical-data.csv")
+df = pd.read_csv("iris.csv")
 # Do Data Cleaning w/ Pandas library
 df.dropna(inplace=True) # We could remove all missing/null values since we have a large dataset
 # We can remove unnecessary columns as well, there are A LOT that we won't care about
