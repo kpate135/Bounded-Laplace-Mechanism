@@ -4,7 +4,7 @@ import numpy as np
 from numpy.linalg import norm
 import random
 import math
-
+from sklearn.datasets import load_iris
 
 # =====================================================================================================================================================
 # This is a basic structure of the code that we are going to implement
@@ -15,9 +15,10 @@ import math
 
 # ============Data Handling=================
 # Load dataset
-df = pd.read_csv("iris.csv")
+iris = load_iris()
+original_data = iris.data
 # Do Data Cleaning w/ Pandas library
-df.dropna(inplace=True) # We could remove all missing/null values since we have a large dataset
+#df.dropna(inplace=True) # We could remove all missing/null values since we have a large dataset
 # We can remove unnecessary columns as well, there are A LOT that we won't care about
 # cols_to_keep = ['INSERT COLUMNS']
 # df = df.drop(columns=df.columns.difference(cols_to_keep)) # This specifies columns we want to keep, and it drops the rest of the columns (Could be useful)
@@ -56,7 +57,7 @@ def Bounded_Laplace_Algorithm(original_data, scale, bound): # FIX ME, What input
 # Extract the target row from the dataset
 
 # Calculate the sensitivity of the query 
-sensitivity = calculate_sensitivity() #Calculate and pass in the correct target row here
+sensitivity = calculate_sensitivity(original_data) #Calculate and pass in the correct target row here
 
 # Set the privacy level (epsilon) 
 epsilon = 1.0
@@ -67,4 +68,9 @@ bound = 1.0
 scale = calculate_scale(sensitivity, epsilon) # might need to update # FIX ME!
 
 #Call Bounded_Laplace_Algorithm passing in original data, laplace scale, and bound
+noisy_data = Bounded_Laplace_Algorithm(original_data, scale, bound)
+
+#Compare original data and noisy data (after applying Bounded Laplace Mechanism)
+print("Original Data: ", original_data)
+print("Noisy Data: ", noisy_data)
 # =============END=========================
