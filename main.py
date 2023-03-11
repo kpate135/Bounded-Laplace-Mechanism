@@ -75,12 +75,17 @@ def calculate_mean(data, columnName):
 # ========================================================================================================================================================
 # ========================================================================================================================================================
 # ========================================================================================================================================================
-def Bounded_Laplace_Algorithm(original_data, scale, bound): # FIX ME, What input does it need?
+def Bounded_Laplace_Algorithm(original_data, scale, bound,flag): # FIX ME, What input does it need?
     #original_data represents the data prior to noise being introduced
     #the scale refers to the λ or exponential decay needed for the laplace mechanism
     #the bound indicates the appopriate output domain in which the noise can be introduced
-    
-    noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
+    if(flag==1) # We use the library
+        noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
+    else
+        # transform from [uniform distribution] into [Laplace distribution]
+        uniform_transform = random.uniform() # What value we agree on? 
+        # Please find how to actually do this. Before Monday!!!
+
     #apply the bounding restrictions to the new method
 
     return original_data + noise    # FIX ME, obviously 
@@ -121,9 +126,10 @@ columnName = "sepal.length"
 original_data = calculate_mean(original_data, columnName) #specify the column of the iris dataset
 
 #Call Bounded_Laplace_Algorithm passing in original data, laplace scale, and bound
-noisy_data = Bounded_Laplace_Algorithm(original_data, scale, bound)
-
+noisy_data_np = Bounded_Laplace_Algorithm(original_data, scale, bound,1)
+noisy_data_CEK = Bounded_Laplace_Algorithm(original_data, scale, bound,2)
 #Compare original data and noisy data (after applying Bounded Laplace Mechanism)
 print("Original Data: ", original_data)
-print("Noisy Data: ", noisy_data)
+print("Noisy Data with Numpy Implementation: ", noisy_data_np)
+print("Noisy Data with CEK Implementation: ", noisy_data_CEK)
 # =============END=========================
