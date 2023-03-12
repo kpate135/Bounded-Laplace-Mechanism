@@ -1,4 +1,3 @@
-
 # import csv
 import random
 import math
@@ -77,7 +76,7 @@ def calculate_mean(data, columnName):
 # ========================================================================================================================================================
 def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag): # FIX ME, What input does it need?
     #original_data represents the data prior to noise being introduced
-    #the scale refers to the λ or exponential decay needed for the laplace mechanism
+    #the scale refers to the Î» or exponential decay needed for the laplace mechanism
     #the bound indicates the appopriate output domain in which the noise can be introduced
     if (flag==1): # We use the library
         noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
@@ -93,9 +92,9 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag): # FIX ME,
         inverse_CDF_noise = mu - b * np.sign(p - 0.5) * np.log(1 - 2 * np.abs(p - 0.5))
 
         #apply the bounding restrictions to the new method
+        bounded_noise = np.clip(inverse_CDF_noise, -bound, bound)
 
-
-        noise = inverse_CDF_noise
+        noise = bounded_noise
 
     return original_data + noise
 # ========================================================================================================================================================
