@@ -74,10 +74,10 @@ def calculate_mean(data, columnName):
 # ========================================================================================================================================================
 # ========================================================================================================================================================
 # ========================================================================================================================================================
-def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag): # FIX ME, What input does it need?
+def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag): 
     #original_data represents the data prior to noise being introduced
     #the scale refers to the Î» or exponential decay needed for the laplace mechanism
-    #the bound indicates the appopriate output domain in which the noise can be introduced
+    #the bound indicates the appropriate output domain in which the noise can be introduced
     if (flag==1): # We use the library
         noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
     else:
@@ -129,7 +129,8 @@ epsilon = 1.0
 # Set the bound for the magnitude of the noise introduced
 bound = 1.0
 
-scale = calculate_scale(sensitivity, epsilon) # might need to update # FIX ME!
+# Set the scale parameter based on sensitivity and privacy level
+scale = calculate_scale(sensitivity, epsilon) 
 
 #Calculate the mean of the target column (the value we want to apply privacy to)
 #define the columnName to calculate mean on
