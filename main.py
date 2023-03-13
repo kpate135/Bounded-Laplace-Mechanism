@@ -136,12 +136,12 @@ for trial_number in num_testing_values:  # this loop can be removed if we are no
             #btw, do we need this for this project scope?
             
             result = Bounded_Laplace_Algorithm(temp_data_subset, epsilon, lower, upper)  # apply function to the subset we just created
-            # print(f"Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
+            print(f"Calculating: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
             
             if best_so_far_result is None or result < best_so_far_result:  # since we looking for the smallest value
                 best_so_far_params = (trial_number, epsilon, bound) # record down what loop id we in
                 best_so_far_result = result   # update best so far
-                print(f"Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
+                print(f"Final Result: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
                 
 
 # AT THE END # Print the best out of the best
