@@ -9,14 +9,14 @@ from sklearn.datasets import load_iris
 # =====================================================================================================================================================
 # This is a basic structure of the code that we are going to implement
 # We would not use the built-in method in numpy to do Bounded Leplace Algorithm, instead we would implement it by using only math and random libraries
-# This program expects a COVID dataset which you can find in our GitHub link. The dataset was originally found on Kaggle.
 # =====================================================================================================================================================
 
 
 # ============Data Handling=================
 # Load dataset
+iris_data_df = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data") # alternative way to download the data. This is so everyone can run our code?
 df = pd.read_csv("iris.csv")
-print(df.head)
+print(df.head())
 iris = load_iris()
 original_data = iris.data
 # Do Data Cleaning w/ Pandas library
@@ -107,13 +107,53 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag):
 # ========================================================================================================================================================
 
 
+# This is to test if the algorithem works as expected, with this dataset, that dataset, or... more dataset?
+# ============================BEGINNING OF Testing If Bounded_Laplace_Algorithm Works========================================================
+# The following method refers to the technique I learned in CS170 AI where I found the best so far by iterating through (lmao) all possible combinations!
+testing_data = iris_data_df.values.tolist() # We want to perform testing on all rows
+num_testing_values = [10, 50, 100, 500, 1000] # So our algorithem can be applied to different size of dataset (not only the iris dataset)
+epsilon_testing_values = [0.1, 0.5, 1, 1.5, 2]
+bounds_testing_values = [(0, 1), (0, 10), (0, 100), (-10, 10), (-100, 100)]
+
+# Set None to begin our testing
+best_so_far_result = None  
+best_so_far_params = None
+
+# Main loop for testing, this is a nested nested loop we would test all combination of testin value, epsilon, and bound to find a good combination.
+for trial_number in num_testing_values:  # this loop can be removed if we are not going to apply this algorithem to another dataset, fun to keep for now, until it is taking too long to run
+    for epsilon in epsilon_testing_values:
+        for bound in bounds_testing_values:
+            lower, upper = bound
+            
+            #sample subset data from orginal dataset using loop
+            temp_data_subset = [] #empty out subset
+            for row in testing_data:
+                temp_row = [] #empty out temp_subset
+                for x in range(len(row)):
+                    temp_row.append(random.uniform(lower, upper))  # selecting random subset to ensure we are not overfitting 
+                temp_data_subset.append(temp_row)
+            #temp_data_subset now contains a subset of the original data with random values within the bounds of some features. 
+            #btw, do we need this for this project scope?
+            
+            result = Bounded_Laplace_Algorithm(temp_data_subset, epsilon, lower, upper)  # apply function to the subset we just created
+            # print(f"Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
+            
+            if best_so_far_result is None or result < best_so_far_result:  # since we looking for the smallest value
+                best_so_far_params = (trial_number, epsilon, bound) # record down what loop id we in
+                best_so_far_result = result   # update best so far
+                print(f"Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
+                
+
+# AT THE END # Print the best out of the best
+best_so_far_params.trial_number
+print(f"Num_testing_values: {best_so_far_params.trial_number}, Epsilon: {best_so_far_params.epsilon}, Bound: {best_so_far_params.bound}, Result: {best_so_far_result}")  
+
+# ============================END OF Testing If Bounded_Laplace_Algorithm Works========================================================
 
 
 
 
-
-
-# ======Apply Algorithm to Dataset========
+# ======Apply Algorithm to the (Whole) Dataset========
 
 # Extract the target row from the dataset
 
@@ -121,14 +161,15 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, bound, flag):
 sensitivity = calculate_sensitivity(original_data) #Calculate and pass in the correct target row here
 
 # Set the location parameter 
-loc = 0.0
+loc = 0.0 
 
 # Set the privacy level (epsilon) 
-epsilon = 1.0
+epsilon = 1.0 # The code above should find the optimal value for this already, double check if yes please fix me.
 
 # Set the bound for the magnitude of the noise introduced
-bound = 1.0
-
+bound = 1.0 # The code above should find the optimal value for this already, double check if yes please fix me. FIX ME to a (x,y) value type as well
+#Also need to fix the main def of the algorithem. Should be Ez.
+ 
 # Set the scale parameter based on sensitivity and privacy level
 scale = calculate_scale(sensitivity, epsilon) 
 
@@ -144,4 +185,7 @@ noisy_data_CEK = Bounded_Laplace_Algorithm(original_data, loc, scale, bound, 2)
 print("Original Data: ", original_data)
 print("Noisy Data with Numpy Implementation: ", noisy_data_np)
 print("Noisy Data with CEK Implementation: ", noisy_data_CEK)
-# =============END=========================
+# =============END OF MAIN=========================
+
+
+
