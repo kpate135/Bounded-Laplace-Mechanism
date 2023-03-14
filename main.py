@@ -78,11 +78,7 @@ def calculate_mean(data, columnName):
 def Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, flag): 
     #original_data represents the data prior to noise being introduced
     #the scale refers to the Î» or exponential decay needed for the laplace mechanism
-    #the bound indicates the appropriate output domain in which the noise can be introduced
-    laplace_distribution = laplace(loc, scale)
-    CDF_at_upper = laplace_distribution.cdf(upper)
-    CDF_at_lower = laplace_distribution.cdf(lower)
-    CDF_at_data = laplace_distribution.cdf(original_data)
+    #the bound indicates the appropriate output domain in which the noise can be introduce
    
     if (flag==1): # We use the library
         noise = np.random.laplace(scale=scale) #TODO: replace the current method with a manual implementation of applying laplace
@@ -97,13 +93,13 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, flag):
         
         inverse_CDF_noise = mu - b * np.sign(p - 0.5) * np.log(1 - 2 * np.abs(p - 0.5))
 
-        #apply the bounding restrictions to the new method
+        # this checks whether the bound parameter is a tuple or not. if tuple, it assigns bound to lower and upper value. if not tuple, it assigns it to both lower and upper
         if isinstance(bound, tuple):
-            lower, upper = map(float, bound)
+             lower, upper = map(float, bound)
         else:
-            lower = upper = float(bound)
+             lower = upper = float(bound)
 
-        #lower, upper = bound
+        #apply the bounding restrictions to the new method
         bounded_noise = np.clip(inverse_CDF_noise, -lower, upper)
 
         noise = bounded_noise
