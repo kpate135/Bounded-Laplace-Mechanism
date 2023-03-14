@@ -120,7 +120,7 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, flag):
 # The following method refers to the technique I learned in CS170 AI where I found the best so far by iterating through (lmao) all possible combinations!
 testing_data = iris_data_df.values.tolist() # We want to perform testing on all rows
 #num_testing_values = [10, 50, 100, 500] # So our algorithem can be applied to different size of dataset (not only the iris dataset)
-epsilon_testing_values = [0.1, 0.5, 1]
+scale_testing_values = [0.1, 0.5, 1]
 bounds_testing_values = [(0, 1), (0, 10), (-1, 1), (-0.5, 0.5)]
 
 # Set None to begin our testing
@@ -129,22 +129,23 @@ best_so_far_params = None
 
 # Main loop for testing, this is a nested nested loop we would test all combination of testin value, epsilon, and bound to find a good combination.
 #for trial_number in num_testing_values:  # this loop can be removed if we are not going to apply this algorithem to another dataset, fun to keep for now, until it is taking too long to run
-for epsilon in epsilon_testing_values:
+test_data = calculate_mean(original_data, "sepal.length")
+for scale in scale_testing_values:
     for bound in bounds_testing_values:
         lower, upper = bound
             
-        result = Bounded_Laplace_Algorithm(original_data, loc=0, scale=epsilon, lower=lower, upper=upper, flag=2)  # apply function to the subset we just created
-        print(f"Calculating: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
+        result = Bounded_Laplace_Algorithm(test_data, loc=0, scale=scale, lower=lower, upper=upper, flag=2)  # apply function to the subset we just created
+        print(f"Calculating: Scale: {scale}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
             
         if best_so_far_result is None or np.min(result) < np.min(best_so_far_result):  # since we looking for the smallest value
-            best_so_far_params = (trial_number, epsilon, bound) # record down what loop id we in
+            best_so_far_params = (scale, bound) # record down what loop id we in
             best_so_far_result = result   # update best so far
-            print(f"Final Result: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
+            print(f"Final Result: Scale: {scale}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
                 
 
 # AT THE END # Print the best out of the best
 #best_so_far_params.trial_number
-print(f"Num_testing_values: {best_so_far_params[0]}, Epsilon: {best_so_far_params[1]}, Bound: {best_so_far_params[2]}, Result: {best_so_far_result}")  
+print(f"Scale: {best_so_far_params[0]}, Bound: {best_so_far_params[1]}, Result: {best_so_far_result}")  
 
 # ============================END OF Testing If Bounded_Laplace_Algorithm Works========================================================
 
@@ -162,10 +163,10 @@ sensitivity = calculate_sensitivity(original_data) #Calculate and pass in the co
 loc = 0.0 
 
 # Set the privacy level (epsilon) 
-epsilon = best_so_far_params[1] # The code above should find the optimal value for this already, double check if yes please fix me.
+epsilon = best_so_far_params[0] # The code above should find the optimal value for this already, double check if yes please fix me.
 
 # Set the bound for the magnitude of the noise introduced
-lower, upper = best_so_far_params[2] # The code above should find the optimal value for this already, double check if yes please fix me. FIX ME to a (x,y) value type as well
+lower, upper = best_so_far_params[1] # The code above should find the optimal value for this already, double check if yes please fix me. FIX ME to a (x,y) value type as well
 #Also need to fix the main def of the algorithem. Should be Ez.
  
 # Set the scale parameter based on sensitivity and privacy level
