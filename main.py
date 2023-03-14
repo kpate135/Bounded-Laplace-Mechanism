@@ -119,7 +119,7 @@ def Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, flag):
 # ============================BEGINNING OF Testing If Bounded_Laplace_Algorithm Works========================================================
 # The following method refers to the technique I learned in CS170 AI where I found the best so far by iterating through (lmao) all possible combinations!
 testing_data = iris_data_df.values.tolist() # We want to perform testing on all rows
-num_testing_values = [10, 50, 100, 500] # So our algorithem can be applied to different size of dataset (not only the iris dataset)
+#num_testing_values = [10, 50, 100, 500] # So our algorithem can be applied to different size of dataset (not only the iris dataset)
 epsilon_testing_values = [0.1, 0.5, 1]
 bounds_testing_values = [(0, 1), (0, 10), (-1, 1), (-0.5, 0.5)]
 
@@ -128,28 +128,18 @@ best_so_far_result = None
 best_so_far_params = None
 
 # Main loop for testing, this is a nested nested loop we would test all combination of testin value, epsilon, and bound to find a good combination.
-for trial_number in num_testing_values:  # this loop can be removed if we are not going to apply this algorithem to another dataset, fun to keep for now, until it is taking too long to run
-    for epsilon in epsilon_testing_values:
-        for bound in bounds_testing_values:
-            lower, upper = bound
+#for trial_number in num_testing_values:  # this loop can be removed if we are not going to apply this algorithem to another dataset, fun to keep for now, until it is taking too long to run
+for epsilon in epsilon_testing_values:
+    for bound in bounds_testing_values:
+        lower, upper = bound
             
-            #sample subset data from orginal dataset using loop
-            temp_data_subset = [] #empty out subset
-            for row in testing_data:
-                temp_row = [] #empty out temp_subset
-                for x in range(len(row)):
-                    temp_row.append(random.uniform(lower, upper))  # selecting random subset to ensure we are not overfitting 
-                temp_data_subset.append(temp_row)
-            #temp_data_subset now contains a subset of the original data with random values within the bounds of some features. 
-            #btw, do we need this for this project scope?
+        result = Bounded_Laplace_Algorithm(original_data, loc=0, scale=epsilon, lower=lower, upper=upper, flag=2)  # apply function to the subset we just created
+        print(f"Calculating: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
             
-            result = Bounded_Laplace_Algorithm(temp_data_subset, loc=0, scale=epsilon, lower=lower, upper=upper, flag=2)  # apply function to the subset we just created
-            print(f"Calculating: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see, too much message, this is comment out
-            
-            if best_so_far_result is None or np.min(result) < np.min(best_so_far_result):  # since we looking for the smallest value
-                best_so_far_params = (trial_number, epsilon, bound) # record down what loop id we in
-                best_so_far_result = result   # update best so far
-                print(f"Final Result: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
+        if best_so_far_result is None or np.min(result) < np.min(best_so_far_result):  # since we looking for the smallest value
+            best_so_far_params = (trial_number, epsilon, bound) # record down what loop id we in
+            best_so_far_result = result   # update best so far
+            print(f"Final Result: Num_testing_values: {trial_number}, Epsilon: {epsilon}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
                 
 
 # AT THE END # Print the best out of the best
@@ -194,5 +184,3 @@ print("Original Data: ", original_data)
 print("Noisy Data with Numpy Implementation: ", noisy_data_np)
 print("Noisy Data with CEK Implementation: ", noisy_data_CEK)
 # =============END OF MAIN=========================
-
-
