@@ -35,7 +35,7 @@ Here are the goals of this research: <br />
 --------------------------------
 1. Install the latest Python version on your machine if you have not done so already. You can download the latest version from the official Python website (https://www.python.org/downloads/).
 2. Download the iris flower dataset from our repository. Save the file as "iris.csv" in the same directory as the main.py file.
-3. Make sure you have the required dependencies installed on your computer. The libraries used in our code are numpy, pandas, sklearn, and scipy. You can install them using pip, the Python package installer. For example, to install numpy, you can run the command "pip install numpy" in your terminal or command prompt.
+3. Make sure you have the required dependencies installed on your computer. The libraries used in our code are matplotlib, numpy, pandas, sklearn, and scipy. You can install them using pip, the Python package installer. For example, to install numpy, you can run the command "pip install numpy" in your terminal or command prompt.
 4. Use an Python-supported IDE such as Microsoft Visual Studio, Visual Studio Code, etc to run our main.py file.
 
 
