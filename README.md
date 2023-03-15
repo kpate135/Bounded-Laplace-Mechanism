@@ -1,6 +1,6 @@
 # Bounded Laplace Algorithm
 # CS108 Project Group CEK 
-
+https://docs.google.com/presentation/d/1XugUg07pRdyjtaIZ8yQ8LhkL0AKFN7gVWmr9YCH7zzI/edit?usp=sharing
 -------------------------
 ## Members
 
@@ -53,6 +53,17 @@ After discussing with TA, we are implementing the Bounded Laplace Mechanism algo
 The Dataset used in the research paper and our implementation is the Iris Flower Dataset.<br />
 https://en.wikipedia.org/wiki/Iris_flower_data_set <br />
 https://www.kaggle.com/datasets/arshid/iris-flower-dataset <br />
+
+
+## Project Presentation (Phase 2)
+--------------------------------
+We are currently working on the presentation https://docs.google.com/presentation/d/1XugUg07pRdyjtaIZ8yQ8LhkL0AKFN7gVWmr9YCH7zzI/edit?usp=sharing
+After that, we would enhance and finalize the product during the weekend for the final release.
+
+
+
+
+
 ## Papers/Reference
 --------------------------------
 https://academic.oup.com/jamia/article/28/10/2269/6333353 <br />
