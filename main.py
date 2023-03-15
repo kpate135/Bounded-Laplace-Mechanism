@@ -17,7 +17,9 @@ from scipy.stats import laplace
 # Load dataset
 iris_data_df = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data") # alternative way to download the data. This is so everyone can run our code?
 df = pd.read_csv("iris.csv")
+print ("df.head(): ")
 print(df.head())
+print("\n")
 iris = load_iris()
 original_data = iris.data
 # Do Data Cleaning w/ Pandas library
@@ -140,7 +142,7 @@ for scale in scale_testing_values:
         if best_so_far_result is None or np.min(result) < np.min(best_so_far_result):  # since we looking for the smallest value
             best_so_far_params = (scale, bound) # record down what loop id we in
             best_so_far_result = result   # update best so far
-            print(f"Final Result: Scale: {scale}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
+            #print(f"Final Result: Scale: {scale}, Bound: {bound}, Result: {result}")  #print out to see ONLY when best so far updated
                 
 
 # AT THE END # Print the best out of the best
@@ -149,7 +151,68 @@ print(f"Scale: {best_so_far_params[0]}, Bound: {best_so_far_params[1]}, Result: 
 
 # ============================END OF Testing If Bounded_Laplace_Algorithm Works========================================================
 
+print("\n")
+# ========== Determine Accuracy using train-test-split and Naive Bayes classification ==========
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from scipy.stats import laplace
+import matplotlib.pyplot as plt
 
+# Load the iris dataset to X and y for training and testing split 
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# import train_test_split library from sklearn with a 80%/20% train/test-split 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Compute the accuracy of the naive_bayes classifier on the original (non-perturbed) testing data
+clf = GaussianNB()
+clf.fit(X_train, y_train)
+original_score = clf.score(X_test, y_test) #find the accuracy between the testing data and actual data
+
+# Define the privacy budget (epsilon) values to test
+epsilon_values = [8.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.5, 0.1, 0.01] #[0.1, 0.5, 1.0, 2.0, 5.0] #[1000, 100, 10, 1, 0.1, 0.01]
+
+# Set test_sensitivity
+test_sensitivity = 1.0
+
+# Define the number of simulations (to calculate accuracy for)
+num_simulations = 100
+
+# Initialize a list to store the average accuracy for each epsilon value
+mean_accuracy = []
+
+# Train and test the naive Bayes classifier for each value of epsilon we want to test
+for epsilon in epsilon_values:
+    # Initialize a list to store the accuracy for each simulation
+    accuracy_list = []
+    
+    for i in range(num_simulations):
+        # Add Laplace noise to each feature's mean
+        for j in range(X_train.shape[1]):
+            X_train[:, j] += laplace.rvs(loc=0, scale=test_sensitivity/epsilon, size=X_train.shape[0]) #go through each column and take laplace for every row 
+        
+        # Fit the naive Bayes classifier on the perturbed training data
+        clf = GaussianNB()
+        clf.fit(X_train, y_train)
+    
+        # Evaluate the accuracy of the classifier on the testing data
+        score = clf.score(X_test, y_test)
+        accuracy_list.append(score)
+    
+    # Compute the mean accuracy over 100 simulations
+    print(f"Epsilon: {epsilon:.1f}, Sensitivity: {test_sensitivity:.2f}, Accuracy: {np.mean(accuracy_list):.3f}")
+    mean_accuracy.append(np.mean(accuracy_list))
+    
+# Plot the comparison accuracy vs epsilon for a differentially private naive Bayes classifer 
+plt.plot(epsilon_values, mean_accuracy, '-.', label="Differentially Private")
+plt.axhline(y=original_score, color='g', linestyle='--', label="Non-Private Baseline")
+plt.legend(loc="upper left")
+#plt.plot(epsilon_values, avg_accuracy, '-o')
+plt.xlabel('Epsilon')
+plt.ylabel('Accuracy')
+plt.title('Accuracy vs Epsilon for Differentially Private Naive Bayes')
+plt.show()
 
 
 # ======Apply Algorithm to the (Whole) Dataset========
@@ -181,6 +244,7 @@ original_data = calculate_mean(original_data, columnName) #specify the column of
 noisy_data_np = Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, 1)
 noisy_data_CEK = Bounded_Laplace_Algorithm(original_data, loc, scale, lower, upper, 2)
 #Compare original data and noisy data (after applying Bounded Laplace Mechanism)
+print("\n")
 print("Original Data: ", original_data)
 print("Noisy Data with Numpy Implementation: ", noisy_data_np)
 print("Noisy Data with CEK Implementation: ", noisy_data_CEK)
